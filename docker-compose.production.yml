@@ -15,19 +15,19 @@ services:
     image: greengoblinalex/kittygram_backend
     env_file: .env
     volumes:
-      - static_volume_kittygram:/backend_static
+      - static:/backend_static
 
   frontend:
     image: greengoblinalex/kittygram_frontend
     env_file: .env
     command: cp -r /app/build/. /frontend_static/
     volumes:
-      - static_volume_kittygram:/frontend_static
+      - static:/frontend_static
 
   gateway:
     image: greengoblinalex/kittygram_gateway
     env_file: .env
     volumes:
-      - static_volume_kittygram:/staticfiles/
+      - static:/staticfiles/
     ports:
       - 8080:80
