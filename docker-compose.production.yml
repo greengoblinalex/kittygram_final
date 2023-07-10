@@ -1,33 +1,38 @@
 version: '3'
 
 volumes:
-  pg_data:
-  static:
+  pg_data_production:
+  static_volume:
+  media_volume:
 
 services:
   db:
     image: postgres:13.10
     env_file: .env
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - pg_data_production:/var/lib/postgresql/data
 
   backend:
     image: greengoblinalex/kittygram_backend
     env_file: .env
+    depends_on:
+    - db
     volumes:
-      - static:/backend_static
+      - static_volume:/backend_static
+      - media_volume:/media
 
   frontend:
     image: greengoblinalex/kittygram_frontend
     env_file: .env
     command: cp -r /app/build/. /frontend_static/
     volumes:
-      - static:/frontend_static
+      - static_volume:/frontend_static
 
   gateway:
     image: greengoblinalex/kittygram_gateway
     env_file: .env
     volumes:
-      - static:/staticfiles/
+      - static_volume:/staticfiles/
+      - media_volume:/media/
     ports:
       - 9000:80
