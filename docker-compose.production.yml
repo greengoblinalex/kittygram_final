@@ -33,6 +33,6 @@ services:
     env_file: .env
     volumes:
       - static_volume:/staticfiles/
-      - media_volume:/media/
+      - media_volume:/var/www/kittygram/media
     ports:
       - 9000:80
