@@ -19,7 +19,7 @@ services:
     - db
     volumes:
       - static_volume:/backend_static
-      - media_volume:/media
+      - media_volume:/app/media
 
   frontend:
     image: greengoblinalex/kittygram_frontend
@@ -33,6 +33,6 @@ services:
     env_file: .env
     volumes:
       - static_volume:/staticfiles/
-      - media_volume:/var/www/kittygram/media
+      - media_volume:/media/
     ports:
       - 9000:80
