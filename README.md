@@ -1,8 +1,8 @@
 <h1 align="center">Всем привет! Меня зовут <a href="https://github.com/greengoblinalex" target="_blank">Алексей</a> и я автор данного приложения
 <img src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32"/></h1>
-![example workflow](https://github.com/greengoblinalex/kittygram_final/actions/workflows/main.yml/badge.svg)
 
 # Kittygram
+![example workflow](https://github.com/greengoblinalex/kittygram_final/actions/workflows/main.yml/badge.svg)
 
 ## Описание
 
