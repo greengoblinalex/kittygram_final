@@ -11,14 +11,56 @@
 ## Развертывание проекта локально
 *При развертывании проетка требуется установить Docker*
 
-1. Переходим в главную дирректорию проекта Kittygram
-2. Далее прописываем команду `docker compose up -d`
-3. Выполняем миграции с помощью команды `docker compose exec backend python manage.py migrate`
+1. Переходим в главную дирректорию проекта kittygram
+2. Добавляем в нее файл .env и прописываем в нем нужные данные, как в .env.example
+3. Запускаем Docker Compose в режиме демона `sudo docker compose -f docker-compose.production.yml up -d`
+4. Выполняем миграции с помощью команды `docker compose exec backend python manage.py migrate`
 
-## Развертывание проекта на сервере, с использованием CI/CD и отправкой сообщения об успешном деплое в Telegram
+## Развертывание проекта на сервере
+1. Устанавливаем Docker Compose на сервер
+```
+sudo apt update
+sudo apt install curl
+curl -fSL https://get.docker.com -o get-docker.sh
+sudo sh ./get-docker.sh
+sudo apt-get install docker-compose-plugin 
+```
+2. Устанавливаем и запускаем nginx
+```
+sudo apt install nginx
+sudo systemctl start nginx
+```
+3. Через редактор Nano откройте файл конфигурации веб-сервера
+```
+sudo nano /etc/nginx/sites-enabled/default
+```
+4. Удалите все настройки из файла, запишите и сохраните новые
+```
+server {
+    listen 80;
+    server_name публичный_ip_вашего_удалённого_сервера;
+    
+    location / {
+        proxy_set_header HOST $host;
+        proxy_pass http://127.0.0.1:9000;
+    }
 
-1. Сделайте Fork репозитория Kittygram
-2. Зайдите в settings сфоркнутого репозитория и пропишите все Secrets:
+} 
+```
+3. Создаём деррикторию kittygram на сервере
+4. Копируем в данную деррикторию docker-compose.production.yml и создаём .env, после чего прописываем в нем нужные данные, как в .env.example
+5. Запускаем Docker Compose в режиме демона 
+```
+sudo docker compose -f docker-compose.production.yml up -d
+```
+6. Выполняем миграции с помощью команды 
+```
+docker compose exec backend python manage.py migrate
+```
+
+## Развертывание проекта с использованием CI/CD
+1. Делаем Fork репозитория Kittygram
+2. Заходим в settings сфоркнутого репозитория и прописываем все Secrets:
 DOCKER_PASSWORD - Пароль от dockerhub
 DOCKER_USERNAME - Username от dockerhub
 USER - username хоста
@@ -27,9 +69,46 @@ SSH_KEY - ssh-ключ хоста
 SSH_PASSPHRASE - пароль хоста
 TELEGRAM_TO - id вашего телеграма
 TELEGRAM_TOKEN - токен вашего телеграм-бота
-3. Создайте деррикторию kittygram на сервере
-4. Скопируйте в данную деррикторию docker-compose.production.yml и .env(можно использовать .env.example, в нем нужно заменить данные на свои)
-5. Теперь, при пуше коммита в ветку main, будет проходить автоматическое тестирование кода, обновление image в dockerhub, деплой всего на сервер с последующим перезапуском сети контейнеров
+3. Устанавливаем Docker Compose на сервер
+```
+sudo apt update
+sudo apt install curl
+curl -fSL https://get.docker.com -o get-docker.sh
+sudo sh ./get-docker.sh
+sudo apt-get install docker-compose-plugin 
+```
+4. Устанавливаем и запускаем nginx
+```
+sudo apt install nginx
+sudo systemctl start nginx
+```
+5. Через редактор Nano откройте файл конфигурации веб-сервера
+```
+sudo nano /etc/nginx/sites-enabled/default
+```
+6. Удалите все настройки из файла, запишите и сохраните новые
+```
+server {
+    listen 80;
+    server_name публичный_ip_вашего_удалённого_сервера;
+    
+    location / {
+        proxy_set_header HOST $host;
+        proxy_pass http://127.0.0.1:9000;
+    }
 
+} 
+```
+7. Создаём деррикторию kittygram на сервере
+8. Копируем в данную деррикторию docker-compose.production.yml и создаём .env, после чего прописываем в нем нужные данные, как в .env.example
+9. Запускаем Docker Compose в режиме демона 
+```
+sudo docker compose -f docker-compose.production.yml up -d
+```
+10. Выполняем миграции с помощью команды 
+```
+docker compose exec backend python manage.py migrate
+```
+11. Теперь при пуше коммитов в ветку main будет происходить автоматическое тестирование, обновление image на dockerhub и деплой проекта на сервер
 
 ## <a href="https://simonov-tech.ru" target="_blank">Развернутый проект</a>
