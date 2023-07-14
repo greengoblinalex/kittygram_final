@@ -2,6 +2,7 @@
 <img src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32"/></h1>
 
 # Kittygram
+![example workflow](https://github.com/greengoblinalex/kittygram_final/actions/workflows/main.yml/badge.svg)
 
 ## Описание
 
@@ -11,7 +12,7 @@
 *При развертывании проетка требуется установить Docker*
 
 1. Переходим в главную дирректорию проекта Kittygram
-2. Далее прописываем команду `docker compose up`
+2. Далее прописываем команду `docker compose up -d`
 3. Выполняем миграции с помощью команды `docker compose exec backend python manage.py migrate`
 
 ## Развертывание проекта на сервере, с использованием CI/CD и отправкой сообщения об успешном деплое в Telegram
