@@ -2,7 +2,7 @@
 <img src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32"/></h1>
 
 # Kittygram
-![example workflow](https://github.com/greengoblinalex/kittygram_final/actions/workflows/main.yml/badge.svg)
+![Deploy badge](https://github.com/greengoblinalex/kittygram_final/actions/workflows/main.yml/badge.svg)
 
 ## Описание
 
